@@ -1,0 +1,15 @@
+[
+    {
+        "language": "C++",
+        "boilerPlateCode": "#include <iostream> \r\rint main() { \r\tstd::cout << \"Hello, world!\" << std::endl; \r\treturn 0; \r}"
+    },
+    {
+        "language": "Java",
+        "boilerPlateCode": "public class Main { \r\tpublic static void main(String[] args) { \r\t\tSystem.out.println(\"Hello, world!\"); \r\t} \r}"
+    },
+    {
+        "language": "Python",
+        "boilerPlateCode": "print(\"Hello, world!\")"
+    }
+
+]

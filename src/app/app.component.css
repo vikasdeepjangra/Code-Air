@@ -1,0 +1,9 @@
+#langBtn{
+    min-width: 15vw;
+    padding: 5vh 0 5vh 0;
+}
+
+#langBtn:hover{
+    background-color: black;
+    color: white;
+}

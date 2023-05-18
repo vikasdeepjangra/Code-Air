@@ -1,0 +1,19 @@
+<div id="navBar" class="d-flex justify-content-between align-items-center"> 
+    <div id="homeBtnArea" class="d-flex align-items-center">
+        <i (click)="goToHome()" id="homeBtn" class="bi bi-house-door-fill me-3"></i>
+        <span style="font-size: 1.2vw;">Code Air // <span class="text-danger">{{ selectedLang }}</span></span>
+    </div>
+
+    <div id="runBtn" class="d-flex justify-content-center align-items-center">
+        Run <i class="bi bi-play-fill"></i>
+    </div>
+</div>
+
+<div id="monacoEditorXtermContainer">
+    <ngx-monaco-editor
+        [options]="editorOptions"
+        [(ngModel)]="boilerPlateCode"
+        style="height: 94vh; width: 50vw; display: inline-block;"
+        class="pt-3">
+    </ngx-monaco-editor>
+</div>

@@ -1,0 +1,39 @@
+#navBar{
+    height: 6vh;
+}
+
+#homeBtnArea{
+    font-size: 1vw;
+    color: black;
+}
+
+#homeBtn{
+    font-size: 1.6vw;
+    cursor: pointer;
+    color: black;
+    background-color: red;
+    height: 6vh;
+    width: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#runBtn{
+    cursor: pointer;
+    font-size: 1.0vw;
+    background-color: #3B71CA;
+    color: white;
+    height: 6vh;
+    width: 6vw;
+}
+
+#monacoEditorXtermContainer{
+    padding: 0;
+    margin: 0;
+    background-color: rgb(33, 33, 33);
+}
+
+#terminal{
+    display: inline-block;
+}
