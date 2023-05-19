@@ -1,3 +1,6 @@
+#select-language, #codeAirTitle {
+    font-family: 'Varela', sans-serif;
+}
 #langBtn{
     min-width: 15vw;
     padding: 5vh 0 5vh 0;

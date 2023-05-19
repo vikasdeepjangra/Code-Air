@@ -4,7 +4,7 @@
         <span style="font-size: 1.2vw;">Code Air // <span class="text-danger">{{ selectedLang }}</span></span>
     </div>
 
-    <div id="runBtn" class="d-flex justify-content-center align-items-center">
+    <div id="runBtn" class="d-flex justify-content-center align-items-center" (click)="runCode()">
         Run <i class="bi bi-play-fill"></i>
     </div>
 </div>
@@ -16,4 +16,7 @@
         style="height: 94vh; width: 50vw; display: inline-block;"
         class="pt-3">
     </ngx-monaco-editor>
+
+    <div id="terminal" style="width: 50vw; height: 92vh; display: inline-block;" class="ps-3 pt-3">
+    </div>
 </div>

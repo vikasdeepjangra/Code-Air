@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import boilerplate from "../../assets/boilerplateCodes.json";
+import { ITerminalOptions, Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+
 
 @Component({
   selector: 'app-code-area',
@@ -14,6 +17,18 @@ export class CodeAreaComponent {
   selectedLang: string;
   editorOptions: any;
   boilerPlateCode: any;
+  term: Terminal;
+  fitAddon: FitAddon;
+  
+
+  baseTerminalOptions: ITerminalOptions = {
+    fontWeight: '400',
+    fontSize: 14,
+    fontFamily: 'Consolas, "Courier New", monospace',
+    cursorBlink: true,
+    theme: { background: '#263238' },
+    scrollback: Number.MAX_SAFE_INTEGER,
+  };
 
   ngOnInit(){
     this._router.paramMap.subscribe(params => {
@@ -33,10 +48,20 @@ export class CodeAreaComponent {
                           fontSize: "15px",
                           wordWrap: "off"  };
                       
+    this.term = new Terminal(this.baseTerminalOptions);
+    this.fitAddon = new FitAddon();
+    this.term.loadAddon(this.fitAddon);       
+    this.term.open(document.getElementById('terminal'));
+    this.term.write("Click on Run.")
+    this.fitAddon.fit();
   }
 
   goToHome(){
     this.router.navigate(['/']);
+  }
+
+  runCode(){
+    
   }
 
 }

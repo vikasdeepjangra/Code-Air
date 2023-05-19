@@ -1,5 +1,7 @@
 #navBar{
     height: 6vh;
+    width: 50vw;
+    font-family: 'Varela', sans-serif;
 }
 
 #homeBtnArea{
@@ -8,7 +10,7 @@
 }
 
 #homeBtn{
-    font-size: 1.6vw;
+    font-size: 1.2vw;
     cursor: pointer;
     color: black;
     background-color: red;
@@ -35,5 +37,6 @@
 }
 
 #terminal{
-    display: inline-block;
+    display: inline-block; 
+    background-color: #263238;
 }
