@@ -1,11 +1,11 @@
 [
     {
         "language": "C++",
-        "boilerPlateCode": "#include <iostream> \r\rint main() { \r\tstd::cout << \"Hello, world!\" << std::endl; \r\treturn 0; \r}"
+        "boilerPlateCode": "#include <iostream> \n\nint main() { \n\tstd::cout << \"Hello, world!\" << std::endl; \n\treturn 0; \n}"
     },
     {
         "language": "Java",
-        "boilerPlateCode": "public class Main { \r\tpublic static void main(String[] args) { \r\t\tSystem.out.println(\"Hello, world!\"); \r\t} \r}"
+        "boilerPlateCode": "public class Main { \n\tpublic static void main(String[] args) { \n\t\tSystem.out.println(\"Hello, world!\"); \n\t} \n}"
     },
     {
         "language": "Python",

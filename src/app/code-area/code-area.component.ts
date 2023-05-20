@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import boilerplate from "../../assets/boilerplateCodes.json";
 import { ITerminalOptions, Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
-
+import { Socket, io } from 'socket.io-client'
 
 @Component({
   selector: 'app-code-area',
@@ -19,7 +19,7 @@ export class CodeAreaComponent {
   boilerPlateCode: any;
   term: Terminal;
   fitAddon: FitAddon;
-  
+  socket = io("http://localhost:3000")
 
   baseTerminalOptions: ITerminalOptions = {
     fontWeight: '400',
@@ -54,6 +54,11 @@ export class CodeAreaComponent {
     this.term.open(document.getElementById('terminal'));
     this.term.write("Click on Run.")
     this.fitAddon.fit();
+
+    this.socket.on("connect", () => {
+      console.log("Connected with ID: ", this.socket.id);
+    })
+
   }
 
   goToHome(){
@@ -61,7 +66,9 @@ export class CodeAreaComponent {
   }
 
   runCode(){
-    
+    console.log(this.boilerPlateCode);
+    this.socket.emit("run-code", this.boilerPlateCode);
   }
+
 
 }
