@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    console.log(this.supportedLang)
   }
 
 }

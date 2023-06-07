@@ -33,7 +33,6 @@ export class CodeAreaComponent {
   ngOnInit(){
     this._router.paramMap.subscribe(params => {
       this.selectedLang = params.get('lang');
-      console.log(this.selectedLang);
     });
 
     for(let i=0; i<boilerplate.length; i++){
@@ -55,6 +54,17 @@ export class CodeAreaComponent {
     this.term.write("Click on Run.")
     this.fitAddon.fit();
 
+    this.term.onKey(e => {
+      console.log(e.key);
+      this.term.write(e.key);
+      if (e.key == '\r')
+          this.term.write('\n');
+    })
+
+    this.term.onData((input) => {
+      this.socket.send('userInput', input);
+    })
+
     this.socket.on("connect", () => {
       console.log("Connected with ID: ", this.socket.id);
     })
@@ -63,12 +73,17 @@ export class CodeAreaComponent {
 
   goToHome(){
     this.router.navigate(['/']);
+    this.socket.disconnect()
   }
 
   runCode(){
+    this.term.reset();
     console.log(this.boilerPlateCode);
-    this.socket.emit("run-code", this.boilerPlateCode);
-  }
+    this.socket.emit("run-code", this.boilerPlateCode, this.selectedLang == "C++"? "cpp" : this.selectedLang.toLowerCase());
 
+    this.socket.on("output-from-server", (output) => {    
+      this.term.write(output)
+    })
+  }
 
 }
