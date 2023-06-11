@@ -10,7 +10,7 @@ import { Socket, io } from 'socket.io-client'
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.css']
 })
-export class CodeAreaComponent {
+export class CodeAreaComponent implements OnInit {
 
   constructor(private _router: ActivatedRoute, private router: Router){ }
 
@@ -19,6 +19,7 @@ export class CodeAreaComponent {
   boilerPlateCode: any;
   term: Terminal;
   fitAddon: FitAddon;
+  runBtnDisable: boolean = true;
   socket = io("http://localhost:3000")
 
   baseTerminalOptions: ITerminalOptions = {
@@ -26,6 +27,7 @@ export class CodeAreaComponent {
     fontSize: 14,
     fontFamily: 'Consolas, "Courier New", monospace',
     cursorBlink: true,
+    convertEol: true,
     theme: { background: '#263238' },
     scrollback: Number.MAX_SAFE_INTEGER,
   };
@@ -79,10 +81,18 @@ export class CodeAreaComponent {
   runCode(){
     this.term.reset();
     console.log(this.boilerPlateCode);
+
+    const runBtnDiv = document.getElementById('runBtn');
+    runBtnDiv.style.pointerEvents = 'none'; // Disable clicks
+    setTimeout(() => {
+      runBtnDiv.style.pointerEvents = 'auto'; // Enable clicks
+    }, 1000);
+
     this.socket.emit("run-code", this.boilerPlateCode, this.selectedLang == "C++"? "cpp" : this.selectedLang.toLowerCase());
 
     this.socket.on("output-from-server", (output) => {    
       this.term.write(output)
+      this.socket.removeAllListeners();
     })
   }
 

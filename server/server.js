@@ -21,6 +21,7 @@ const io = require('socket.io')(3000, {
 
 //COPY CODE FROM CODE EDITOR TO A TEMP FILE FOR COMPILATION
 async function createTempFile(code, language) {
+  console.log("Temp File Created!");
   const ext = language == "python" ? "py" : language;
   return new Promise((resolve, reject) => {
     fs.writeFile(`tempFile/temp.${ext}`, code, (err) => {
@@ -37,14 +38,15 @@ async function createTempFile(code, language) {
 
 //RUN API TO CREATE THE a.out FILE 
 async function compile(language){
+  console.log("Compilation Done!");
   return new Promise((resolve, reject) => {
     const command = "g++ temp.cpp";
     exec(`cd tempFile && ${command}`, (error, stdout, stderr) => {
       if (error) {
-        reject();
+        reject(error);
       }
       if (stderr) {
-        reject();
+        reject(stderr);
       }
       resolve("File Compile Successfully");
   });
@@ -53,8 +55,13 @@ async function compile(language){
 
 //RUN API TO RUN THE a.out FILE IN BACKEND
 async function run(){
+  console.log("Running...");
   return new Promise((resolve, reject) => {
-    exec('cd tempFile && ./a.out', function(err, data) { 
+    exec('cd tempFile && ./a.out', function(err, data) {
+      if(err){
+        reject(err.toString())
+      }
+      console.log(data.toString());
       resolve(data.toString());                    
     });
   })
@@ -69,25 +76,15 @@ io.on('connection', socket => {
     //To Create Temp File
     try {
       const res = await createTempFile(code, language);
-      console.log(res);
+      const compileRes = await compile(language);
+      const runRes = await run();
+      socket.emit("output-from-server", runRes) 
     } catch (error) {
-      console.error(error);
-    }
-
-    //To Compile
-    try {
-      const res = await compile(language);
-      console.log(res);
-    } catch (error) {
-      console.error(error);
-    }
-
-    //To Run
-    try {
-      const res = await run();
-      socket.emit("output-from-server", res) 
-    } catch (error) {
-      console.error(error);
+      var resErr = error.toString()
+      var lines = resErr.split('\n');
+      lines.splice(0,1);
+      resErr = lines.join('\n');
+      socket.emit("output-from-server", resErr) 
     }
 
   })
