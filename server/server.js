@@ -54,6 +54,7 @@ async function compile(language){
 }
 
 //RUN API TO RUN THE a.out FILE IN BACKEND
+//USE PTY-PROCESS HERE INSTEAD OF EXEC DIRECTLY
 async function run(){
   console.log("Running...");
   return new Promise((resolve, reject) => {
